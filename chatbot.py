@@ -24,7 +24,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     configuration_file = args.configuration_file
-    print (config_read(configuration_file))
+    config_read(configuration_file)
 
     print (config.sections())
     controller = Controller(config)

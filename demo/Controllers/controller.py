@@ -8,7 +8,7 @@ import socket
 import sys, logging, json
 from logging.handlers import RotatingFileHandler
 
-from demo.Configuration.Constants import *
+from demo.configuration.constants import *
 
 # sudo pip install flask
 from flask import Flask, render_template, request, jsonify

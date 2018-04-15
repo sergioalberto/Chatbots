@@ -18,7 +18,6 @@ config = configparser.ConfigParser()
 def config_read(configuration_file):
     return config.read(configuration_file)
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Chatbot demo')
     parser.add_argument('-conf', '--configuration_file', help='The configuration file', required=True)

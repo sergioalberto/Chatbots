@@ -4,7 +4,8 @@
 # 14/4/2018
 # Cartago, Costa Rica
 
-import os.path
+import os
+import json
 import sys
 import uuid
 
@@ -21,15 +22,17 @@ class Google_Conversation:
     def __init__(self, access_token):
         self.access_token = access_token
 
-    def chat(self, text_to_send, session_id=""):
+    def chat(self, text_to_send, session_id="", verbose=True):
+
         if not session_id:
             self.session_id = uuid.uuid4().hex
         else:
             self.session_id = session_id
 
-        return self.__send_message(text_to_send, self.session_id)
+        return self.__send_message(text_to_send, self.session_id, verbose=verbose)
 
-    def __send_message(self, text_to_send, session_id, lang='en'):
+    def __send_message(self, text_to_send, session_id, lang='en', verbose=True):
+
         ai = apiai.ApiAI(self.access_token)
 
         request = ai.text_request()
@@ -42,10 +45,9 @@ class Google_Conversation:
         request.query = text_to_send
 
         response = request.getresponse()
-        # result = response['result']
+        response = json.loads(response.read().decode())
 
-        print (response.read())
+        if verbose:
+            print (response)
+
         return response
-
-google = Google_Conversation("6bbadc113b4844ed817948672713d5d0")
-google.chat("Hello")

@@ -16,38 +16,61 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os.path
+import os, uuid
 import sys
-import uuid
+import argparse
+import six
 
-try:
-    import apiai
-except ImportError:
-    sys.path.append(
-        os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)
-    )
-    import apiai
+if six.PY2:
+    import ConfigParser as configparser
+else:
+    import configparser
 
-CLIENT_ACCESS_TOKEN = '6bbadc113b4844ed817948672713d5d0'
+from demo.core.core import *
 
+config = configparser.ConfigParser()
 
-def main():
-    ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+def config_read(configuration_file):
+    return config.read(configuration_file)
 
-    request = ai.text_request()
+def main(information):
 
-    request.lang = 'en'  # optional, default value equal 'en'
+    print ("----------------------------------------------------------------------------------")
+    print ("Welcome to chatbot terminal.")
+    print ("Here you can test and chat with a chatbot that you have trained on Google or IBM.")
+    print ("Created by Sergio GQ")
+    print ("Cartago, Costa Rica")
+    print ("----------------------------------------------------------------------------------")
+    print ("")
+    print ("Note: To quit, just type 'Bye'")
+    print ("")
 
-    # some unuque session id for user identification
-    request.session_id = uuid.uuid4().hex
+    session_id = uuid.uuid4().hex
+    chat = Core(information)
 
-    request.query = "Hello"
+    while True:
+        message = input('Type a message ... : ')
 
-    response = request.getresponse()
-    # result = response['result']
+        if (message.lower() == "bye"):
+            break
 
-    print (response.read())
-    #print (result['resolvedQuery'].lower())
+        print ("You: "+message)
+        response = chat.chat_with_bot(message, session_id)
+        print ("Cherry: "+response)
+
 
 if __name__ == '__main__':
-    main()
+
+    parser = argparse.ArgumentParser(description='Chatbot demo')
+    parser.add_argument('-conf', '--configuration_file', help='The configuration file', required=True)
+    parser.add_argument('-sdk', '--sdk_kind', help='Google or IBM SDK', required=True)
+    args = parser.parse_args()
+
+    configuration_file = args.configuration_file
+    config_read(configuration_file)
+
+    information = {}
+    information['SDK'] = args.sdk_kind
+    information['ACCESS_TOKEN'] = config.get('GOOGLE', 'CLIENT_ACCESS_TOKEN')
+
+    main(information)

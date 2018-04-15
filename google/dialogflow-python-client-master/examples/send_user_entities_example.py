@@ -50,7 +50,7 @@ def main():
 
     user_entities_response = user_entities_request.getresponse()
 
-    print 'Upload user entities response: ', (user_entities_response.read())
+    print ('Upload user entities response: ', (user_entities_response.read()))
 
     request = ai.text_request()
 
@@ -59,7 +59,7 @@ def main():
 
     response = request.getresponse()
 
-    print 'Query response: ', (response.read())
+    print ('Query response: ', (response.read()))
 
 
 if __name__ == '__main__':

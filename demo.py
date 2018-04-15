@@ -38,11 +38,11 @@ def main(information):
     print ("----------------------------------------------------------------------------------")
     print ("Welcome to chatbot terminal.")
     print ("Here you can test and chat with a chatbot that you have trained on Google or IBM.")
-    print ("Created by Sergio GQ")
-    print ("Cartago, Costa Rica")
+    print ("Created by Sergio GQ.")
+    print ("Cartago, Costa Rica.")
     print ("----------------------------------------------------------------------------------")
     print ("")
-    print ("Note: To quit, just type 'Bye'")
+    print ("Note: To quit, just type 'Bye'.")
     print ("")
 
     session_id = uuid.uuid4().hex
@@ -54,23 +54,24 @@ def main(information):
         if (message.lower() == "bye"):
             break
 
-        print ("You: "+message)
+        print (" >> You: "+message)
         response = chat.chat_with_bot(message, session_id)
-        print ("Cherry: "+response)
+        print (" >> Cherry: "+response)
 
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='Chatbot demo')
-    parser.add_argument('-conf', '--configuration_file', help='The configuration file', required=True)
-    parser.add_argument('-sdk', '--sdk_kind', help='Google or IBM SDK', required=True)
+    parser = argparse.ArgumentParser(description='Chatbot demo using Google or IBM SDK')
+    parser.add_argument('-conf', '--configuration_file', help='The configuration file. e.g: configFile.ini', required=True)
+    parser.add_argument('-sdk', '--sdk_kind', help='Google or IBM SDK. e.g: Google', required=True)
     args = parser.parse_args()
 
     configuration_file = args.configuration_file
-    config_read(configuration_file)
+    if not config_read(configuration_file):
+        print ('The file {} could not found'.format(configuration_file))
+    else:
+        information = {}
+        information['SDK'] = args.sdk_kind
+        information['ACCESS_TOKEN'] = config.get('GOOGLE', 'CLIENT_ACCESS_TOKEN')
 
-    information = {}
-    information['SDK'] = args.sdk_kind
-    information['ACCESS_TOKEN'] = config.get('GOOGLE', 'CLIENT_ACCESS_TOKEN')
-
-    main(information)
+        main(information)

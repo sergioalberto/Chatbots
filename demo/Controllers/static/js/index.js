@@ -14,6 +14,7 @@ $(document).ready(function(){
 		}
 	});
 
+    sentTextToBot("Hello!");
 });
 
 function formatAMPM(date) {
@@ -28,10 +29,8 @@ function formatAMPM(date) {
 }
 
 //-- No use time. It is a javaScript effect.
-function insertChat(who, text, time){
-    if (time === undefined){
-        time = 0;
-    }
+function insertChat(who, text){
+
     var control = "";
     var date = formatAMPM(new Date());
 
@@ -55,11 +54,8 @@ function insertChat(who, text, time){
                         '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:50px;" src="'+you.avatar+'" /></div>' +
                   '</li>';
     }
-    setTimeout(
-        function(){
-            $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
-        }, time);
 
+    $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
 }
 
 function resetChat(){
@@ -70,6 +66,26 @@ function sendMsj(){
 	var text = $("#mytext").val();
 	if (text !== ""){
 		insertChat("me", text);
+		sentTextToBot(text);
 		$("#mytext").val('');
 	}
+}
+
+function sentTextToBot(text){
+
+    $.ajax({
+        url: '/sendText?textToSend='+text,
+        contentType :"text/plain; charset=UTF-8",
+        dataType : "json",
+        async: true,
+        type: 'GET',
+        success: function(response) {
+        	//alert(response.response);
+        	insertChat("you", response.response);
+        },
+        error: function(error) {
+        	alert(error);
+        }
+    });
+
 }

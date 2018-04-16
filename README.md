@@ -7,10 +7,22 @@ Here you can find some demos using Google and IBM SDKs in Python
 ```sh
  pip install configparser
  pip install flask
+ pip install Flask-Session
+ pip install redis
+ pip install beaker
+ easy_install python-memcached
  pip install apiai
 ```
 
+### Run terminal demo
+```sh
+python demo.py -conf configFile.ini -sdk Google
+```
 
+### Run chatbot web
+```sh
+python chatbot.py -conf configFile.ini -sdk Google
+```
 
 License
 ----

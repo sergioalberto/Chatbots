@@ -5,7 +5,7 @@
 # Cartago, Costa Rica
 
 import socket, uuid, os
-import sys, logging, json
+import sys, logging, json, base64
 from logging.handlers import RotatingFileHandler
 
 from demo.configuration.constants import *
@@ -28,7 +28,6 @@ class BeakerSessionInterface(SessionInterface):
         session.save()
 
 # create a session key
-import base64
 if not os.path.exists("session.key") or not os.path.exists("session.secret"):
     session_secret = uuid.uuid4().hex
     session_key = uuid.uuid4().hex
@@ -77,10 +76,11 @@ def sent_text():
 
     if not session.has_key('session_id'):
         session['session_id'] = uuid.uuid4().hex
+
     print ("MyId: "+session['session_id'])
     text_to_send = request.args.get('textToSend', '')
     global orchestrator
-    response = orchestrator.chat_with_bot(text_to_send)
+    response = orchestrator.chat_with_bot(text_to_send, session['session_id'])
 
     return jsonify(response=response)
 

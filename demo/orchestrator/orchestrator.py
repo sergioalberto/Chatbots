@@ -11,6 +11,6 @@ class Orchestrator:
     def __init__(self, sdk_info):
         self.core = Core(sdk_info)
 
-    def chat_with_bot(self, text_to_send):
-        return "hello"
+    def chat_with_bot(self, text_to_send, session_id):
+        return self.core.chat_with_bot(text_to_send, session_id)
 

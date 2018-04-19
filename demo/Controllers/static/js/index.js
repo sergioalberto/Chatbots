@@ -2,14 +2,14 @@ $(document).ready(function(){
 
 	$("#mytext").on("keypress", function(event){
 		var code = (event.keyCode ? event.keyCode : event.which);
-		if (code === 13){
+		if (code === 13){ // Enter
 			sendMsj();
 		}
 	});
 
 	$("#mytext").on("keyup", function(event){
 		var code = (event.keyCode ? event.keyCode : event.which);
-		if (code === 8){
+		if (code === 8){ // backspace
 			// sendMsj();
 		}
 	});

@@ -74,4 +74,8 @@ if __name__ == '__main__':
         information['SDK'] = args.sdk_kind
         information['ACCESS_TOKEN'] = config.get('GOOGLE', 'CLIENT_ACCESS_TOKEN')
 
+        information['IBM_USERNAME'] = config.get('IBM', 'USERNAME')
+        information['IBM_PASSWORD'] = config.get('IBM', 'PASSWORD')
+        information['IBM_WORKSPACE_ID'] = config.get('IBM', 'WORKSPACE_ID')
+
         main(information)

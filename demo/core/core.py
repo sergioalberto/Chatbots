@@ -4,7 +4,8 @@
 # 14/4/2018
 # Cartago, Costa Rica
 
-from demo.core.google_conversation import *
+from demo.core.google.google_conversation import *
+from demo.core.ibm.ibm_conversations import *
 
 class Core:
 
@@ -15,14 +16,26 @@ class Core:
             self.google_conversation = Google_Conversation(sdk_info['ACCESS_TOKEN'])
         else:
             self.is_google = False
+            self.ibm_conversations = IBM_Conversations(sdk_info['IBM_USERNAME'],
+                                                       sdk_info['IBM_PASSWORD'],
+                                                       sdk_info['IBM_WORKSPACE_ID'])
 
-    # Allow to get the google text response
+    # Allow to get the Google text response
     # Parameters:
     # => json_response: The JSON Google response
     # Return:
     # => String: The text response
     def __get_google_text_response(self, json_response):
         response = json_response['result']['fulfillment']['speech']
+        return response
+
+    # Allow to get the IBM text response
+    # Parameters:
+    # => json_response: The JSON IBM response
+    # Return:
+    # => String: The text response
+    def __get_ibm_text_response(self, json_response):
+        response = json_response['output']['text'][0]
         return response
 
     # Chat with the bot
@@ -37,4 +50,5 @@ class Core:
             response = self.google_conversation.chat(text_to_send, session_id, False)
             return self.__get_google_text_response(response)
         else:
-            return ""
+            response = self.ibm_conversations.chat(text_to_send, session_id, False)
+            return self.__get_ibm_text_response(response)

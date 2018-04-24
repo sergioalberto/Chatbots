@@ -12,6 +12,7 @@ Here you can find some demos using Google and IBM SDKs in Python
  pip install beaker
  easy_install python-memcached
  pip install apiai
+ easy_install --upgrade watson-developer-cloud (pip install --upgrade watson-developer-cloud)
 ```
 
 ### Run terminal demo

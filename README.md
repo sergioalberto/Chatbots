@@ -19,11 +19,13 @@ Here you can find some demos using Google and IBM SDKs in Python
 ```sh
 python demo.py -conf configFile.ini -sdk Google
 ```
+![Alt text](demo/controllers/static/img/terminal.png?raw=true "Terminal Chatbot")
 
 ### Run chatbot web
 ```sh
 python chatbot.py -conf configFile.ini -sdk Google
 ```
+![Alt text](demo/controllers/static/img/chatWeb.png?raw=true "Web Chatbot")
 
 License
 ----

@@ -49,7 +49,7 @@ def main(information):
     chat = Core(information)
 
     while True:
-        message = input('Type a message ... : ')
+        message = raw_input('Type a message ... : ')
 
         if (message.lower() == "bye"):
             break

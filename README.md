@@ -1,7 +1,6 @@
 # Chatbots
 Here you can find some demos using Google and IBM SDKs in Python
 
-
 ### Install the dependencies
 
 ```sh
@@ -26,6 +25,8 @@ python demo.py -conf configFile.ini -sdk Google
 python chatbot.py -conf configFile.ini -sdk Google
 ```
 ![Alt text](demo/controllers/static/img/chatWeb.png?raw=true "Web Chatbot")
+
+On this [blog](https://sergioalbertogq.blogspot.com/2018/05/how-to-create-easy-chatbot.html) you can find more information.
 
 License
 ----

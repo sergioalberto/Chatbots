@@ -60,7 +60,10 @@ class Google_Conversation:
         request.query = text_to_send
 
         response = request.getresponse()
-        response = json.loads(response.read().decode())
+        try:
+            response = json.loads(response.read().decode('utf-8'))
+        except ValueError:
+            print ("Error: Should verify the encoding.")
 
         if verbose:
             print (response)

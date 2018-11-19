@@ -56,7 +56,7 @@ def main(information):
 
         print (" >> You: "+message)
         response = chat.chat_with_bot(message, session_id)
-        print (" >> Cherry: "+response)
+        print (" >> GAPBot: "+response)
 
 
 if __name__ == '__main__':
